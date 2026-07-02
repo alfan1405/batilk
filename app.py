@@ -59,10 +59,32 @@ def _load_interpreter() -> Tuple[Interpreter, np.ndarray, List[int]]:
     return interpreter, np.array([input_index, output_index], dtype=np.int32), input_shape
 
 
-INTERPRETER, IO_INDEX, INPUT_SHAPE = _load_interpreter()
-INPUT_HEIGHT = int(INPUT_SHAPE[1])
-INPUT_WIDTH = int(INPUT_SHAPE[2])
-INPUT_CHANNELS = int(INPUT_SHAPE[3])
+# Interpreter dibuat secara lazy saat request pertama untuk menghindari crash saat startup.
+INTERPRETER = None
+IO_INDEX = None
+INPUT_SHAPE = None
+INPUT_HEIGHT = None
+INPUT_WIDTH = None
+INPUT_CHANNELS = None
+
+
+def _ensure_interpreter_loaded():
+    global INTERPRETER, IO_INDEX, INPUT_SHAPE
+    global INPUT_HEIGHT, INPUT_WIDTH, INPUT_CHANNELS
+
+    if INTERPRETER is not None:
+        return
+
+    interpreter, io_index, input_shape = _load_interpreter()
+    INTERPRETER = interpreter
+    IO_INDEX = io_index
+    INPUT_SHAPE = input_shape
+
+    INPUT_HEIGHT = int(INPUT_SHAPE[1])
+    INPUT_WIDTH = int(INPUT_SHAPE[2])
+    INPUT_CHANNELS = int(INPUT_SHAPE[3])
+
+
 
 
 def _decode_base64_data_url(data_url: str) -> bytes:
@@ -95,7 +117,7 @@ def _preprocess_image(image_bytes: bytes) -> np.ndarray:
     return arr.astype(np.float32)
 
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
     payload = request.get_json(silent=True) or {}
 
@@ -105,8 +127,10 @@ def predict():
         return jsonify({"error": "Missing field 'image' (base64 data URL)"}), 400
 
     try:
+        _ensure_interpreter_loaded()
         image_bytes = _decode_base64_data_url(data_url)
         input_tensor = _preprocess_image(image_bytes)
+
 
         input_index = int(IO_INDEX[0])
         output_index = int(IO_INDEX[1])
@@ -151,6 +175,5 @@ def static_proxy(path: str):
 
 
 if __name__ == "__main__":
-    # Dev server
-    app.run(host="127.0.0.1", port=5000, debug=True)
-
+    # If you still see 127.0.0.1 in Railway logs, ensure Railway uses app:app as entrypoint.
+    app.run(host="0.0.0.0", port=5000, debug=False)
