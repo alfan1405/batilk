@@ -1,0 +1,14 @@
+JawaBarat_GongSibolong
+JawaBarat_MegaMendung
+JawaTengah_BokorKencono
+JawaTengah_Sidomukti
+JawaTengah_Sidomulyo
+JawaTengah_Srikaton
+JawaTengah_Tribusono
+JawaTengah_Truntum
+Yogyakarta_Kawung
+Yogyakarta_Parang
+Yogyakarta_SekarJagad
+Yogyakarta_Sidoluhur
+Yogyakarta_WahyuTumurun
+Yogyakarta_Wirasat

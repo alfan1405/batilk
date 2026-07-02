@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatikLens — Deteksi Jenis Batik | Batik Tradjumas</title>
+<meta name="description" content="Unggah atau foto kain batik untuk mengenali jenis motifnya dengan BatikLens.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Lewati ke konten utama</a>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <img src="images/logo.png" alt="Logo Batik Sejati Tradjumas - Depok Indonesia">
+      </span>
+    </a>
+    <button class="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav-links" aria-label="Navigasi utama">
+      <a href="index.html">Home</a>
+      <a href="katalog.html">Katalog</a>
+      <a href="tradjumasnews.html">TradjumasNews</a>
+      <a href="batikcare.html">BatikCare</a>
+      <a href="batiklens.html" class="active">BatikLens</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="page-header">
+    <div class="container">
+      <span class="section-label">BatikLens</span>
+      <h1>Kenali Jenis Motif Batik</h1>
+      <p>Unggah foto dari galeri atau ambil langsung dengan kamera. Sistem akan menganalisis motif pada kain batik Anda.</p>
+    </div>
+  </div>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="lens-shell">
+
+        <div class="lens-stage" id="lensStage">
+          <div class="lens-placeholder" id="lensPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>
+            <span>Belum ada gambar dipilih.<br>Gunakan tombol Galeri atau Kamera di bawah.</span>
+          </div>
+          <img id="lensPreview" alt="Pratinjau kain batik yang diunggah" style="display:none;">
+          <div class="scan-corners">
+            <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
+          </div>
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="lens-actions">
+          <input type="file" id="fileInput" accept="image/*">
+          <button class="btn btn-ghost" id="galleryBtn" type="button">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>
+            Galeri
+          </button>
+          <button class="btn btn-ghost" id="cameraBtn" type="button">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"/><circle cx="12" cy="13" r="4"/></svg>
+            Kamera
+          </button>
+          <button class="btn btn-primary" id="detectBtn" type="button" disabled>
+            Deteksi Motif
+          </button>
+          <button class="btn btn-ghost" id="resetBtn" type="button" hidden>
+            Ulangi
+          </button>
+        </div>
+
+        <div class="lens-status" id="lensStatus" role="status" aria-live="polite"></div>
+
+        <div class="lens-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Untuk hasil terbaik, foto kain dalam kondisi pencahayaan cukup dan motif terlihat jelas tanpa lipatan berlebih.</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Camera modal -->
+<div class="camera-modal" id="cameraModal" aria-hidden="true" role="dialog" aria-label="Ambil foto dari kamera">
+  <div class="camera-modal-inner">
+    <video id="cameraVideo" autoplay playsinline muted></video>
+    <div class="camera-modal-actions">
+      <button class="btn btn-primary" id="captureBtn" type="button">Ambil Foto</button>
+      <button class="btn btn-outline" id="closeCameraBtn" type="button">Batal</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>Batik Tradjumas</h4>
+      <p>Pelopor batik khas Depok Jawa Barat sejak 2015. Batik bicara, budaya bernyawa.</p>
+    </div>
+    <div>
+      <h4>Jelajah</h4>
+      <p><a href="katalog.html">Katalog Produk</a></p>
+      <p><a href="tradjumasnews.html">TradjumasNews</a></p>
+      <p><a href="batikcare.html">BatikCare</a></p>
+      <p><a href="batiklens.html">BatikLens</a></p>
+    </div>
+    <div>
+      <h4>Hubungi Kami</h4>
+      <p>+62 856-8336-288</p>
+      <p>@batik_tradjumas</p>
+      <p>Sawangan, Kota Depok, Jawa Barat</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Batik Tradjumas. Seluruh hak cipta dilindungi.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core/dist/tf-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu/dist/tf-backend-cpu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
+<script src="js/nav.js?v=20260702"></script>
+<script src="js/batiklens.js?v=20260702"></script>
+</body>
+</html>
